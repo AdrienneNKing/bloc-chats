@@ -10,7 +10,6 @@ class RoomList extends React.Component {
 
   componentDidMount() {
     this.roomsRef.on('child_added', (snapshot) => {
-      debugger
       const room = snapshot.val();
       room.key = snapshot.key;
       this.setState({ rooms: this.state.rooms.concat ( room ) });
@@ -18,9 +17,13 @@ class RoomList extends React.Component {
   }
 
   render () {
-    return (
-      <div></div>
-    )
+    return (<div>
+      {this.state.rooms.map((room, index) => (
+        <li className="roomNames" key={room.key} onClick={()=> this.props.handleRoomSelect(room.key)}>
+         {room.name}
+         </li>
+      ))}
+    </div>);
   }
 
 }
