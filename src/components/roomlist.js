@@ -18,11 +18,11 @@ class RoomList extends React.Component {
 
   render () {
     return (<ul>
-      {this.state.rooms.map((room, index) => (
+      {this.state.rooms.map ((room, index) =>
         <li className="roomNames" key={room.key} onClick={()=> this.props.handleRoomSelect(room.key)}>
          {room.name}
          </li>
-      ))}
+      )}
     </ul>);
   }
 
