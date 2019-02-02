@@ -12,8 +12,7 @@ var config = {
     storageBucket: "bloc-chats-5f8e9.appspot.com",
     messagingSenderId: "231966459458"
   };
-
-firebase.initializeApp(config);
+  firebase.initializeApp(config);
 
 class App extends Component {
   render() {
