@@ -1,10 +1,12 @@
 import React from 'react';
 
-
 class RoomList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { rooms: [] };
+    this.state = {
+      rooms: [],
+      value: '',
+    };
     this.roomsRef = this.props.firebase.database().ref('Rooms');
   }
 
@@ -16,16 +18,32 @@ class RoomList extends React.Component {
     });
   }
 
-  render () {
-    return (<ul>
+  createRoom(event) {
+    this.setState({value: event.target.value});
+    this.roomsRef.push({name: event.target.value});
+    event.preventDefault();
+  }
+
+render(){
+  debugger
+  return(
+    <ul>
       {this.state.rooms.map ((room, index) =>
         <li className="roomNames" key={room.key} onClick={()=> this.props.handleRoomSelect(room.key)}>
          {room.name}
          </li>
       )}
-    </ul>);
-  }
+    </ul>
 
+     <form onSubmit={this.createRoom}>
+       <label>
+       Room Name:
+       <input type="text-box" value={this.state.value} onChange={this.createRoom}/>
+       </label>
+       <input type="submit" value="Submit"/>
+     </form>
+  );
+}
 }
 
 
