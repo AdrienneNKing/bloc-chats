@@ -20,13 +20,15 @@ class RoomList extends React.Component {
     });
   }
 
-  var input = document.getElementByID("test");
-  var msg = "";
-  input.onInput = => {
+
+  onInput(e) {
+    var input = document.getElementByID("test");
+    var msg = "";
     e.preventDefault();
     this.setState({ value: e.target.value});
+    e.target.value = msg;
   }
-  e.target.value = msg;
+
 
   createRoom(event) {
     event.preventDefault();
@@ -36,21 +38,21 @@ class RoomList extends React.Component {
 render(){
   return(
     <div>
-    <ul>
-      {this.state.rooms.map ((room, index) =>
-        <li className="roomNames" key={room.key} onClick={()=> this.props.handleRoomSelect(room.key)}>
-         {room.name}
-         </li>
-      )}
-    </ul>
+      <ul>
+        {this.state.rooms.map ((room, index) =>
+          <li className="roomNames" key={room.key} onClick={()=> this.props.handleRoomSelect(room.key)}>
+           {room.name}
+           </li>
+        )}
+      </ul>
 
-     <form onSubmit={this.createRoom}>
-       <label>
-       Room Name:
-       <input type="text" onChange={this.input.onInput} />
-       </label>
-       <input type="submit" value="Submit"/>
-     </form>
+       <form onSubmit={this.createRoom}>
+         <label>
+         Room Name:
+         <input type="text" onChange={this.state.onInput} />
+         </label>
+         <input type="submit" value="Submit"/>
+       </form>
      </div>
   );
 }
