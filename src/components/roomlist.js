@@ -26,13 +26,14 @@ class RoomList extends React.Component {
     var msg = "";
     e.preventDefault();
     this.setState({ value: e.target.value});
-    e.target.value = msg;
+    return(
+    e.target.value = msg);
   }
 
 
-  createRoom(event) {
-    event.preventDefault();
-    this.roomsRef.push({ value: this.state.value });
+  createRoom(e) {
+    e.preventDefault();
+    this.roomsRef.push({ value: msg});
   }
 
 render(){
