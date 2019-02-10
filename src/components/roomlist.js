@@ -31,14 +31,13 @@ class RoomList extends React.Component {
   }
 
   handleChange(e) {
-    e.preventDefault();
     this.setState({ newRoomName: e.target.value});
 
   }
 
   createRoom(e) {
     e.preventDefault();
-    this.roomsRef.push({ newRoomName: e.target.value});
+    this.roomsRef.push({ name: this.state.newRoomName});
   }
 
 render(){
@@ -55,7 +54,7 @@ render(){
        <form onSubmit={this.createRoom}>
          <label>
          Room Name:
-         <input type="text" value={this.state.newRoomName} onChange={this.state.handleChange} />
+         <input type="text" value={this.state.newRoomName} onChange={this.handleChange} />
          </label>
          <input type="submit" value="Submit"/>
        </form>
