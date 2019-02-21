@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import * as firebase from 'firebase';
 import RoomList from './components/roomlist'
+import MessageList from './components/messagelist'
 
 
 var config = {
@@ -17,7 +18,17 @@ var config = {
 class App extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+
+    };
+    this.activeRoom = this.activeRoom.bind(this);
   }
+
+  activeRoom(e) {
+    
+  }
+
+
   render() {
     return (
       <div className="App">
@@ -27,6 +38,7 @@ class App extends Component {
         <h1>Bloc Chat</h1>
 
         <RoomList firebase={firebase} />
+        <MessageList firebase={firebase} />
       </div>
     );
   }
