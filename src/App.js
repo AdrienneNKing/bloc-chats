@@ -19,13 +19,15 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      currentRoom: {}
     };
-    this.activeRoom = this.activeRoom.bind(this);
+    this.handleRoomSelect = this.handleRoomSelect.bind(this);
   }
 
-  activeRoom(e) {
-    
+  handleRoomSelect(room) {
+    this.setState({
+      currentRoom: room
+    });
   }
 
 
@@ -37,8 +39,8 @@ class App extends Component {
 
         <h1>Bloc Chat</h1>
 
-        <RoomList firebase={firebase} />
-        <MessageList firebase={firebase} />
+        <RoomList firebase={firebase} handleRoomSelect={this.handleRoomSelect} />
+        <MessageList firebase={firebase} currentRoom={this.state.currentRoom} />
       </div>
     );
   }

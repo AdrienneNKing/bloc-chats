@@ -48,7 +48,7 @@ render(){
     <div>
       <ul>
         {this.state.rooms.map ((room, index) =>
-          <li className="roomNames" key={room.key} onClick={()=> this.props.handleRoomSelect(room.key)}>
+          <li className="roomNames" key={room.key} onClick={()=> this.props.handleRoomSelect(room)}>
            {room.name}
            </li>
         )}
