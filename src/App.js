@@ -20,9 +20,11 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentRoom: {}
+      currentRoom: {},
+      user: null,
     };
     this.handleRoomSelect = this.handleRoomSelect.bind(this);
+    this.setUserName = this.setUserName.bind(this);
   }
 
   handleRoomSelect(room) {
@@ -31,6 +33,11 @@ class App extends Component {
     });
   }
 
+  setUserName(user) {
+    this.setState({
+      user: user,
+    });
+  }
 
   render() {
     return (
@@ -42,7 +49,7 @@ class App extends Component {
 
         <RoomList firebase={firebase} handleRoomSelect={this.handleRoomSelect} />
         <MessageList firebase={firebase} currentRoom={this.state.currentRoom} />
-        <User firebase={firebase} />
+        <User firebase={firebase} user={this.state.user}/>
       </div>
     );
   }
