@@ -49,7 +49,7 @@ class App extends Component {
 
         <RoomList firebase={firebase} handleRoomSelect={this.handleRoomSelect} />
         <MessageList firebase={firebase} currentRoom={this.state.currentRoom} />
-        <User firebase={firebase} user={this.state.user}/>
+        <User firebase={firebase} user={this.state.user} setUserName={this.setUserName} />
       </div>
     );
   }

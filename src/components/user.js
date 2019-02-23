@@ -15,8 +15,7 @@ class User extends React.Component {
 
   signIn() {
     const provider = new this.props.firebase.auth.GoogleAuthProvider();
-    this.props.firebase.auth();
-    this.props.firebase.signInWithPopup(provider);
+    this.props.firebase.auth().signInWithPopup(provider);
   }
 
   signOut() {
@@ -31,14 +30,14 @@ class User extends React.Component {
           <button
             type="button"
             className="user-sign-in"
-            onClick={()=> this.signIn}
+            onClick={this.signIn}
           >
           Sign In
           </button>
           <button
             type="button"
             className="user-sign-out"
-            onClick={()=> this.signOut}>
+            onClick={this.signOut}>
             Sign Out
             </button>
             </section>
