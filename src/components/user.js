@@ -4,7 +4,8 @@ class User extends React.Component {
 
   constructor(props) {
     super(props);
-    this.signIn = this.signIn.bind(this)
+    this.signIn = this.signIn.bind(this);
+    this.signOut = this.signOut.bind(this);
   }
 
   componentDidMount() {
@@ -19,7 +20,7 @@ class User extends React.Component {
   }
 
   signOut() {
-    this.props.firebase.auth.signOut();
+    this.props.firebase.auth().signOut(); 
   }
 
 

@@ -5,7 +5,13 @@ class MessageList extends React.Component {
     super(props);
 
     this.state = {
-      messages: []
+      messages: [
+        {
+          username: '',
+          content: '',
+          sentAt: ''
+        },
+      ],
     };
 
     this.messagesRef = this.props.firebase.database().ref('Messages');
@@ -29,6 +35,11 @@ class MessageList extends React.Component {
       <div className='Active Room'>
         <h1>
           <li>{this.props.currentRoom.name}</li>
+          <form>
+            <label>New Message</label>
+            <input type="text"></input>
+            <button type="submit">Send</button>
+          </form>
         </h1>
         <h2>
           <ul>
