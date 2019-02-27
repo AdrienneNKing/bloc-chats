@@ -8,21 +8,23 @@ class MessageList extends React.Component {
       messages: [
         {
           username: '',
-          content: '',
-          sentAt: ''
-        },
+          content:  '',
+          sentAt:   ''
+        }
       ],
+      newMessage: ''
     };
 
-    this.messagesRef = this.props.firebase.database().ref('Messages');
+    this.msgRef = this.props.firebase.database().ref('Messages');
+    this.createMessage = this.createMessage.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    this.messagesRef.on('child_added', (snapshot) => {
-      const message = snapshot.val();
-
-      message.key = snapshot.key;
-      this.setState({ messages: this.state.messages.concat(message) });
+    this.msgRef.on('child_added', snapshot => {
+      const msg = snapshot.val();
+      msg.key = snapshot.key;
+      this.setState({messages: this.state.messages.concat(msg)});
     });
   }
 
@@ -30,25 +32,44 @@ class MessageList extends React.Component {
     return this.state.messages.filter(message => message.roomId === this.props.currentRoom.key);
   }
 
+  createMessage(event) {
+    event.preventDefault();
+    this.msgRef.push({
+      content:  this.state.newMessage,
+      username: this.props.user ? this.props.user.displayName : 'Guest',
+      roomId:   this.props.activeRoomId,
+      sentAt:   this.props.firebase.database.ServerValue.TIMESTAMP,
+    });
+    this.setState({ newMessage: '' });
+  }
+
+  handleChange(event) {
+    this.setState({ newMessage: event.target.value });
+  }
+
   render() {
     return (
       <div className='Active Room'>
-        <h1>
-          <li>{this.props.currentRoom.name}</li>
-          <form>
-            <label>New Message</label>
-            <input type="text"></input>
-            <button type="submit">Send</button>
-          </form>
-        </h1>
         <h2>
-          <ul>
-            {
-              this.getCurrentMessage().map(message => (
-                <li key={message.key}>{message.content}</li>
-              ))
-            }
-          </ul>
+          <section className="Message-List">
+            {this.getCurrentMessage().map(message => (
+                  <div className="messages" key={message.key}>
+                  <div>{message.username}</div>
+                  <div>{message.content}</div>
+                  <div>{message.sentAt}</div>
+                  </div>
+              ))}
+
+          <form className="new-message" onSubmit={this.createMessage}>
+          <input
+            type="text"
+            placeholder="New Message"
+            value={this.state.newMessage}
+            onChange={this.handleChange}
+            />
+            <input type="submit" value="Send" />
+          </form>
+          </section>
         </h2>
       </div>
     );
