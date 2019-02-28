@@ -51,12 +51,14 @@ class MessageList extends React.Component {
   }
 
   formatTime(time) {
-    const date = new Date(time);
-    const hour = date.getHours();
-    const min = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
-    const sec = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
-    const newTime = hour + ':' + min + ':' + sec;
-    return newTime;
+    if (time){
+       const date = new Date(time);
+       const hour = date.getHours();
+       const min = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
+       const sec = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+       const newTime = hour + ':' + min + ':' + sec;
+       return newTime;
+     }
   }
 
   render() {
