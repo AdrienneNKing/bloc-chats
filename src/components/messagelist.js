@@ -18,6 +18,7 @@ class MessageList extends React.Component {
     this.msgRef = this.props.firebase.database().ref('Messages');
     this.createMessage = this.createMessage.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.formatTime = this.formatTime.bind(this);
   }
 
   componentDidMount() {
@@ -34,17 +35,28 @@ class MessageList extends React.Component {
 
   createMessage(event) {
     event.preventDefault();
+
     this.msgRef.push({
       content:  this.state.newMessage,
       username: this.props.user ? this.props.user.displayName : 'Guest',
-      roomId:   this.props.activeRoomId,
+      roomId:   this.props.currentRoom.key,
       sentAt:   this.props.firebase.database.ServerValue.TIMESTAMP,
     });
+
     this.setState({ newMessage: '' });
   }
 
   handleChange(event) {
     this.setState({ newMessage: event.target.value });
+  }
+
+  formatTime(time) {
+    const date = new Date(time);
+    const hour = date.getHours();
+    const min = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
+    const sec = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+    const newTime = hour + ':' + min + ':' + sec;
+    return newTime;
   }
 
   render() {
@@ -56,7 +68,7 @@ class MessageList extends React.Component {
                   <div className="messages" key={message.key}>
                   <div>{message.username}</div>
                   <div>{message.content}</div>
-                  <div>{message.sentAt}</div>
+                  <div>{this.formatTime(message.sentAt)}</div>
                   </div>
               ))}
 
